@@ -11,6 +11,7 @@ Projekt firmware ESPHome dla modułu Waveshare 4.2" V2 (GDEY042T81, 400×300) i 
 - `firmware/epaper-production-display-template.yaml` — szablon ESPHome z sześcioma stronami, QR konfiguracji Wi-Fi, OTA i przyciskami.
 - `hardware/epaper_partitions.csv` — układ partycji dla pamięci Flash 4 MB.
 - `firmware/factory_reset.h` — pomocniczy kod C++ do powrotu do obrazu fabrycznego przez wyczyszczenie metadanych OTA.
+- `docs/USER-GUIDE.md` — konfiguracja i wdrożenie szablonu dla użytkownika.
 - `docs/FACTORY-OTA.md` — ograniczenia i procedura testowania.
 - `secrets-production-example.yaml` — przykładowe sekrety; prawdziwych kluczy i haseł nigdy nie commituj.
 
