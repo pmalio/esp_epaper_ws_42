@@ -60,7 +60,7 @@ esphome:
 
 esp32:
   board: esp32dev
-  partitions: epaper_partitions.csv
+  partitions: ../hardware/epaper_partitions.csv
   framework:
     type: arduino
 

@@ -14,7 +14,7 @@ This design is an experimental engineering prototype, not a validated production
 - BMP asset referenced by the YAML, copied to the path configured under ESPHome
 - A local `secrets.yaml` with a unique API encryption key
 
-The YAML references the partition CSV and C++ header by relative filename. When using the ESPHome dashboard in Home Assistant, copy both files into the ESPHome configuration directory next to the YAML (or update the paths consistently). The BMP path in the YAML must also exist on the Home Assistant host.
+Preserve the repository layout when copying files into the ESPHome configuration directory (for example, `/config/esphome`): keep the YAML and `factory_reset.h` in `firmware/`, and keep `epaper_partitions.csv` in the sibling `hardware/` directory. The YAML's `../hardware/epaper_partitions.csv` path is relative to the YAML file. The BMP path configured in the YAML must also exist on the Home Assistant host.
 
 ## Partition layout
 

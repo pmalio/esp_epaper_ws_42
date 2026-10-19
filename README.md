@@ -16,7 +16,7 @@ Projekt firmware ESPHome dla modułu Waveshare 4.2" V2 (GDEY042T81, 400×300) i 
 
 ## Wdrożenie do Home Assistant
 
-Pliki wskazane w konfiguracji ESPHome muszą być dostępne w katalogu konfiguracji ESPHome. Zanim skopiujesz szablon do działającego urządzenia, zrób kopię zapasową jego konfiguracji i firmware, sprawdź mapowanie encji Home Assistant oraz dostosuj ścieżkę do pliku BMP. Nie flashuj konfiguracji, jeśli walidacja lub kompilacja nie przejdzie.
+Skopiuj katalogi `firmware/` i `hardware/` do katalogu konfiguracji ESPHome, zachowując ich strukturę. YAML i `factory_reset.h` pozostają w `firmware/`, a tabela partycji w `hardware/`; ścieżka `../hardware/epaper_partitions.csv` jest liczona względem pliku YAML. Plik BMP musi być dostępny pod ścieżką skonfigurowaną w YAML. Zanim wdrożysz szablon na działającym urządzeniu, zrób kopię zapasową konfiguracji i firmware oraz sprawdź mapowanie encji Home Assistant. Nie flashuj konfiguracji, jeśli walidacja lub kompilacja nie przejdzie.
 
 ## Układ partycji
 
