@@ -1,0 +1,8 @@
+# ESP32 4 MB flash layout: factory + two OTA application slots.
+# Confirm the physical flash size and compile artifact size before flashing.
+nvs,        data, nvs,     0x9000,   0x4000,
+otadata,    data, ota,     0xD000,   0x2000,
+phy_init,   data, phy,     0xF000,   0x1000,
+factory,    app,  factory, 0x10000,  0x150000,
+ota_0,      app,  ota_0,   0x160000, 0x150000,
+ota_1,      app,  ota_1,   0x2B0000, 0x150000,
