@@ -1,0 +1,641 @@
+# Produkcyjny szablon firmware — Waveshare 4.2" V2 + ESP32-WROOM-32
+# Wymaga unikalnych kluczy per egzemplarz w secrets.yaml.
+# Mapowanie encji jest konfigurowane na etapie przygotowania urządzenia.
+
+substitutions:
+  # Zmieniaj nazwę urządzenia dla każdego egzemplarza.
+  device_name: "ekran-domowy-01"
+  device_friendly_name: "Ekran e-Paper"
+  project_version: "1.0.1"
+  # Generuj unikalne SSID i hasło dla KAŻDEGO egzemplarza.
+  # Hasło ma celowo znaki alfanumeryczne, aby poprawnie działało w Wi-Fi QR.
+  provisioning_ap_ssid: "ekran-domowy-01-Konfiguracja"
+  provisioning_ap_password: "CHANGE-THIS-PER-DEVICE"
+  # Każdą encję przypisz do odpowiedniej encji klienta przed kompilacją.
+  entity_sensor_temp_parter_temperature: "sensor.replace_me_sensor_temp_parter_temperature"  # ustaw na encję klienta: sensor.temp_parter_temperature
+  entity_sensor_temp_parter_humidity: "sensor.replace_me_sensor_temp_parter_humidity"  # ustaw na encję klienta: sensor.temp_parter_humidity
+  entity_sensor_temp_outdoor_temperature: "sensor.replace_me_sensor_temp_outdoor_temperature"  # ustaw na encję klienta: sensor.temp_outdoor_temperature
+  entity_sensor_temp_outdoor_humidity: "sensor.replace_me_sensor_temp_outdoor_humidity"  # ustaw na encję klienta: sensor.temp_outdoor_humidity
+  entity_sensor_actual_power: "sensor.replace_me_sensor_actual_power"  # ustaw na encję klienta: sensor.actual_power
+  entity_sensor_power_consumption: "sensor.replace_me_sensor_power_consumption"  # ustaw na encję klienta: sensor.power_consumption
+  entity_sensor_all_standby_power: "sensor.replace_me_sensor_all_standby_power"  # ustaw na encję klienta: sensor.all_standby_power
+  entity_sensor_power_desk_office_power: "sensor.replace_me_sensor_power_desk_office_power"  # ustaw na encję klienta: sensor.power_desk_office_power
+  entity_sensor_temp_office_temperature: "sensor.replace_me_sensor_temp_office_temperature"  # ustaw na encję klienta: sensor.temp_office_temperature
+  entity_sensor_temp_office_humidity: "sensor.replace_me_sensor_temp_office_humidity"  # ustaw na encję klienta: sensor.temp_office_humidity
+  entity_sensor_temp_basement_temperature: "sensor.replace_me_sensor_temp_basement_temperature"  # ustaw na encję klienta: sensor.temp_basement_temperature
+  entity_sensor_temp_basement_humidity: "sensor.replace_me_sensor_temp_basement_humidity"  # ustaw na encję klienta: sensor.temp_basement_humidity
+  entity_sensor_air_quality_pm25: "sensor.replace_me_sensor_air_quality_pm25"  # ustaw na encję klienta: sensor.air_quality_pm25
+  entity_sensor_air_quality_voc_index: "sensor.replace_me_sensor_air_quality_voc_index"  # ustaw na encję klienta: sensor.air_quality_voc_index
+  entity_sensor_air_quality_temperature: "sensor.replace_me_sensor_air_quality_temperature"  # ustaw na encję klienta: sensor.air_quality_temperature
+  entity_sensor_air_quality_humidity: "sensor.replace_me_sensor_air_quality_humidity"  # ustaw na encję klienta: sensor.air_quality_humidity
+  entity_sensor_temp_1p_temperature: "sensor.replace_me_sensor_temp_1p_temperature"  # ustaw na encję klienta: sensor.temp_1p_temperature
+  entity_sensor_temp_1p_humidity: "sensor.replace_me_sensor_temp_1p_humidity"  # ustaw na encję klienta: sensor.temp_1p_humidity
+  entity_binary_sensor_smoke_sensor_1st_floor_smoke: "binary_sensor.replace_me_binary_sensor_smoke_sensor_1st_floor_smoke"  # ustaw na encję klienta: binary_sensor.smoke_sensor_1st_floor_smoke
+  entity_binary_sensor_smoke_sensor_attic_smoke: "binary_sensor.replace_me_binary_sensor_smoke_sensor_attic_smoke"  # ustaw na encję klienta: binary_sensor.smoke_sensor_attic_smoke
+  entity_binary_sensor_smoke_sensor_kitchen_smoke: "binary_sensor.replace_me_binary_sensor_smoke_sensor_kitchen_smoke"  # ustaw na encję klienta: binary_sensor.smoke_sensor_kitchen_smoke
+  entity_binary_sensor_smoke_sensor_living_room_smoke: "binary_sensor.replace_me_binary_sensor_smoke_sensor_living_room_smoke"  # ustaw na encję klienta: binary_sensor.smoke_sensor_living_room_smoke
+  entity_binary_sensor_water_sensor_basement_water_leak: "binary_sensor.replace_me_binary_sensor_water_sensor_basement_water_leak"  # ustaw na encję klienta: binary_sensor.water_sensor_basement_water_leak
+  entity_binary_sensor_water_sensor_bathroom_water_leak: "binary_sensor.replace_me_binary_sensor_water_sensor_bathroom_water_leak"  # ustaw na encję klienta: binary_sensor.water_sensor_bathroom_water_leak
+  entity_binary_sensor_water_sensor_bathroom_small_water_leak: "binary_sensor.replace_me_binary_sensor_water_sensor_bathroom_small_water_leak"  # ustaw na encję klienta: binary_sensor.water_sensor_bathroom_small_water_leak
+  entity_binary_sensor_water_sensor_kitchen_water_leak: "binary_sensor.replace_me_binary_sensor_water_sensor_kitchen_water_leak"  # ustaw na encję klienta: binary_sensor.water_sensor_kitchen_water_leak
+  entity_binary_sensor_water_sensor_storage_water_leak: "binary_sensor.replace_me_binary_sensor_water_sensor_storage_water_leak"  # ustaw na encję klienta: binary_sensor.water_sensor_storage_water_leak
+  entity_binary_sensor_gate_garage_door_contact: "binary_sensor.replace_me_binary_sensor_gate_garage_door_contact"  # ustaw na encję klienta: binary_sensor.gate_garage_door_contact
+  entity_binary_sensor_rear_door_contact: "binary_sensor.replace_me_binary_sensor_rear_door_contact"  # ustaw na encję klienta: binary_sensor.rear_door_contact
+  entity_binary_sensor_garden_cam_online: "binary_sensor.replace_me_binary_sensor_garden_cam_online"  # ustaw na encję klienta: binary_sensor.garden_cam_online
+  entity_binary_sensor_street_cam_online: "binary_sensor.replace_me_binary_sensor_street_cam_online"  # ustaw na encję klienta: binary_sensor.street_cam_online
+  entity_person_pawel: "person.replace_me_person_pawel"  # ustaw na encję klienta: person.pawel
+  entity_person_agnieszka: "person.replace_me_person_agnieszka"  # ustaw na encję klienta: person.agnieszka
+  entity_person_ida: "person.replace_me_person_ida"  # ustaw na encję klienta: person.ida
+  entity_person_anna: "person.replace_me_person_anna"  # ustaw na encję klienta: person.anna
+
+esphome:
+  name: ${device_name}
+  friendly_name: ${device_friendly_name}
+  min_version: 2026.9.1
+  project:
+    name: ekran_epaper.home_display
+    version: ${project_version}
+  includes:
+    - factory_reset.h
+
+esp32:
+  board: esp32dev
+  partitions: epaper_partitions.csv
+  framework:
+    type: arduino
+
+logger:
+  level: INFO
+
+api:
+  encryption:
+    key: !secret api_encryption_key
+  reboot_timeout: 30min
+
+ota:
+  - platform: esphome
+    encryption:
+
+wifi:
+  # QR na ekranie koduje dokładnie te dane punktu konfiguracyjnego.
+  # Wygeneruj unikalne ssid i hasło dla każdego egzemplarza.
+  ap:
+    ssid: "${provisioning_ap_ssid}"
+    password: "${provisioning_ap_password}"
+    ap_timeout: 10s
+  on_connect:
+    then:
+      - lambda: |-
+          id(wifi_connected) = true;
+          id(current_page) = 0;
+      - component.update: epaperdisplay
+  on_disconnect:
+    then:
+      - lambda: |-
+          id(wifi_connected) = false;
+      - component.update: epaperdisplay
+
+captive_portal:
+improv_serial:
+
+qr_code:
+  - id: setup_qr
+    value: "WIFI:T:WPA;S:${provisioning_ap_ssid};P:${provisioning_ap_password};;"
+    ecc: MEDIUM
+
+spi:
+  clk_pin: GPIO18
+  mosi_pin: GPIO23
+
+globals:
+  - id: current_page
+    type: int
+    restore_value: no
+    initial_value: '0'
+  - id: wifi_connected
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+  - id: reset_confirmation_pending
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+  - id: reset_previous_page
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+interval:
+  - interval: 120s
+    then:
+      - if:
+          condition:
+            lambda: 'return id(wifi_connected) && !id(reset_confirmation_pending);'
+          then:
+            - lambda: |-
+                id(current_page) = (id(current_page) + 1) % 6;
+            - component.update: epaperdisplay
+
+script:
+  - id: reset_confirmation_timeout
+    mode: restart
+    then:
+      # Start the five-second window after the prompt has been drawn.
+      - delay: 5s
+      - if:
+          condition:
+            lambda: 'return id(reset_confirmation_pending);'
+          then:
+            - lambda: |-
+                id(reset_confirmation_pending) = false;
+                id(current_page) = id(reset_previous_page);
+            - component.update: epaperdisplay
+            - logger.log:
+                level: INFO
+                format: "Factory reset confirmation timed out; reset cancelled"
+
+font:
+  - file: "gfonts://Roboto"
+    id: font_small
+    size: 18
+    glyphs: ' !"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~°ĄĆĘŁŃÓŚŹŻąćęłńóśźż'
+
+  - file: "gfonts://Roboto"
+    id: font_large
+    size: 30
+    glyphs: ' 0123456789.-°C%W'
+
+  - file: "gfonts://Roboto@700"
+    id: font_small_bold
+    size: 18
+    glyphs: ' !"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~°ĄĆĘŁŃÓŚŹŻąćęłńóśźż'
+
+  - file: "gfonts://Roboto@700"
+    id: font_large_bold
+    size: 30
+    glyphs: ' 0123456789.-°C%W'
+
+sensor:
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_parter_temperature}
+    id: indoor_temp
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_parter_humidity}
+    id: indoor_humidity
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_outdoor_temperature}
+    id: outdoor_temp
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_outdoor_humidity}
+    id: outdoor_humidity
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_actual_power}
+    id: current_power
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_power_consumption}
+    id: total_power
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_all_standby_power}
+    id: standby_power
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_power_desk_office_power}
+    id: office_power
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_office_temperature}
+    id: office_temp
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_office_humidity}
+    id: office_humidity
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_basement_temperature}
+    id: basement_temp
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_basement_humidity}
+    id: basement_humidity
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_air_quality_pm25}
+    id: air_pm25
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_air_quality_voc_index}
+    id: air_voc
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_air_quality_temperature}
+    id: air_temp
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_air_quality_humidity}
+    id: air_humidity
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_1p_temperature}
+    id: first_floor_temp
+
+  - platform: homeassistant
+    entity_id: ${entity_sensor_temp_1p_humidity}
+    id: first_floor_humidity
+
+button:
+  - platform: template
+    name: "Odśwież e-Paper"
+    on_press:
+      - logger.log: "Kliknięto odświeżanie e-Paper"
+      - component.update: epaperdisplay
+      - logger.log: "Polecenie odświeżenia wysłane"
+
+  - platform: template
+    name: "Żądaj resetu fabrycznego"
+    entity_category: diagnostic
+    on_press:
+      - if:
+          condition:
+            lambda: 'return id(reset_confirmation_pending);'
+          then:
+            - logger.log:
+                level: WARN
+                format: "Confirmation already pending; press physical reset button to confirm"
+          else:
+            - lambda: |-
+                id(reset_previous_page) = id(current_page);
+                id(reset_confirmation_pending) = true;
+                id(current_page) = 6;
+            - component.update: epaperdisplay
+            - script.execute: reset_confirmation_timeout
+
+binary_sensor:
+  - platform: gpio
+    name: "Przycisk e-Paper"
+    id: epaper_button
+    pin:
+      number: GPIO27
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    filters:
+      - delayed_on: 30ms
+      - delayed_off: 30ms
+    on_press:
+      - if:
+          condition:
+            lambda: 'return id(wifi_connected) && !id(reset_confirmation_pending);'
+          then:
+            - lambda: |-
+                id(current_page) = (id(current_page) + 1) % 6;
+            - component.update: epaperdisplay
+
+  - platform: gpio
+    name: "Przycisk resetu fabrycznego"
+    id: factory_reset_button
+    pin:
+      number: GPIO26
+      mode:
+        input: true
+        pullup: true
+      inverted: true
+    filters:
+      - delayed_on: 30ms
+      - delayed_off: 30ms
+    on_press:
+      - if:
+          condition:
+            lambda: 'return id(reset_confirmation_pending);'
+          then:
+            - script.stop: reset_confirmation_timeout
+            - lambda: |-
+                id(reset_confirmation_pending) = false;
+            - logger.log:
+                level: WARN
+                format: "Factory reset confirmed by physical button; rebooting to factory firmware"
+            - delay: 300ms
+            - lambda: |-
+                epaper_boot_factory_firmware();
+          else:
+            - lambda: |-
+                id(reset_previous_page) = id(current_page);
+                id(reset_confirmation_pending) = true;
+                id(current_page) = 6;
+            - component.update: epaperdisplay
+            - script.execute: reset_confirmation_timeout
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_smoke_sensor_1st_floor_smoke}
+    id: smoke_floor1
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_smoke_sensor_attic_smoke}
+    id: smoke_attic
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_smoke_sensor_kitchen_smoke}
+    id: smoke_kitchen
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_smoke_sensor_living_room_smoke}
+    id: smoke_living
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_water_sensor_basement_water_leak}
+    id: leak_basement
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_water_sensor_bathroom_water_leak}
+    id: leak_bathroom
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_water_sensor_bathroom_small_water_leak}
+    id: leak_bathroom_small
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_water_sensor_kitchen_water_leak}
+    id: leak_kitchen
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_water_sensor_storage_water_leak}
+    id: leak_storage
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_gate_garage_door_contact}
+    id: gate_contact
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_rear_door_contact}
+    id: rear_door
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_garden_cam_online}
+    id: garden_camera
+
+  - platform: homeassistant
+    entity_id: ${entity_binary_sensor_street_cam_online}
+    id: street_camera
+
+
+text_sensor:
+  - platform: homeassistant
+    entity_id: ${entity_person_pawel}
+    id: person_pawel
+
+  - platform: homeassistant
+    entity_id: ${entity_person_agnieszka}
+    id: person_agnieszka
+
+  - platform: homeassistant
+    entity_id: ${entity_person_ida}
+    id: person_ida
+
+  - platform: homeassistant
+    entity_id: ${entity_person_anna}
+    id: person_anna
+
+
+        
+image:
+  - platform: file
+    file: "/config/esphome/images/totoro_100x100_.bmp"
+    id: totoro_bmp_100x100
+    type: BINARY
+
+display:
+  - platform: waveshare_epaper
+    id: epaperdisplay
+    model: gdey042t81
+    cs_pin: GPIO5
+    dc_pin: GPIO17
+    reset_pin: GPIO16
+    busy_pin: GPIO4
+    reset_duration: 2ms
+    rotation: 180
+    full_update_every: 1
+    update_interval: never
+
+    lambda: |-
+      // Strona konfiguracji — zachowana bez zmian funkcjonalnych.
+      if (!id(wifi_connected)) {
+        it.fill(Color::WHITE);
+        it.print(200, 8, id(font_small_bold), TextAlign::TOP_CENTER,
+                 "PIERWSZA KONFIGURACJA");
+        it.line(10, 36, 390, 36, Color::BLACK);
+        it.qr_code(18, 65, id(setup_qr), Color::BLACK, 4);
+        it.print(220, 70, id(font_small_bold), TextAlign::TOP_LEFT,
+                 "1. Zeskanuj QR");
+        it.print(220, 100, id(font_small_bold), TextAlign::TOP_LEFT,
+                 "2. Polacz z Wi-Fi");
+        it.print(220, 130, id(font_small_bold), TextAlign::TOP_LEFT,
+                 "ekranu");
+        it.print(220, 172, id(font_small_bold), TextAlign::TOP_LEFT,
+                 "3. Otworz:");
+        it.print(220, 198, id(font_small_bold), TextAlign::TOP_LEFT,
+                 "192.168.4.1");
+        it.print(220, 240, id(font_small), TextAlign::TOP_LEFT,
+                 "Wybierz domowe Wi-Fi");
+
+      } else if (id(reset_confirmation_pending)) {
+        // Ekran potwierdzenia resetu — zachowuje dotychczasowy przepływ.
+        it.fill(Color::BLACK);
+        it.print(200, 20, id(font_small_bold), TextAlign::TOP_CENTER,
+                 "RESET FABRYCZNY?");
+        it.line(20, 58, 380, 58, Color::WHITE);
+        it.print(200, 82, id(font_small_bold), TextAlign::TOP_CENTER,
+                 "NACISNIJ RESET PONOWNIE");
+        it.print(200, 112, id(font_small_bold), TextAlign::TOP_CENTER,
+                 "W CIAGU 5 SEKUND");
+        it.line(20, 150, 380, 150, Color::WHITE);
+        it.print(200, 172, id(font_small_bold), TextAlign::TOP_CENTER,
+                 "BRAK POTWIERDZENIA = ANULUJ");
+        it.print(200, 216, id(font_small_bold), TextAlign::TOP_CENTER,
+                 "GPIO26: POTWIERDZ");
+        it.print(200, 246, id(font_small_bold), TextAlign::TOP_CENTER,
+                 "GPIO27: NIEAKTYWNY");
+
+      } else if (id(current_page) == 0) {
+        // STRONA 1: podstawowy dashboard — temperatura, wilgotność, moc.
+        it.fill(Color::BLACK);
+        it.print(200, 8, id(font_small_bold), TextAlign::TOP_CENTER, "DOM");
+        it.line(10, 36, 390, 36, Color::WHITE);
+        it.line(200, 42, 200, 145, Color::WHITE);
+
+        it.print(100, 48, id(font_small_bold), TextAlign::TOP_CENTER, "WEWNATRZ");
+        if (id(indoor_temp).has_state())
+          it.printf(100, 76, id(font_large_bold), TextAlign::TOP_CENTER,
+                    "%.1f C", id(indoor_temp).state);
+        else
+          it.print(100, 76, id(font_large_bold), TextAlign::TOP_CENTER, "--.- C");
+        if (id(indoor_humidity).has_state())
+          it.printf(100, 116, id(font_small_bold), TextAlign::TOP_CENTER,
+                    "Wilgotnosc %.0f%%", id(indoor_humidity).state);
+        else
+          it.print(100, 116, id(font_small_bold), TextAlign::TOP_CENTER, "Wilgotnosc --%");
+
+        it.print(300, 48, id(font_small_bold), TextAlign::TOP_CENTER, "NA ZEWNATRZ");
+        if (id(outdoor_temp).has_state())
+          it.printf(300, 76, id(font_large_bold), TextAlign::TOP_CENTER,
+                    "%.1f C", id(outdoor_temp).state);
+        else
+          it.print(300, 76, id(font_large_bold), TextAlign::TOP_CENTER, "--.- C");
+        if (id(outdoor_humidity).has_state())
+          it.printf(300, 116, id(font_small_bold), TextAlign::TOP_CENTER,
+                    "Wilgotnosc %.0f%%", id(outdoor_humidity).state);
+        else
+          it.print(300, 116, id(font_small_bold), TextAlign::TOP_CENTER, "Wilgotnosc --%");
+
+        it.line(10, 155, 390, 155, Color::WHITE);
+        it.print(200, 168, id(font_small_bold), TextAlign::TOP_CENTER, "AKTUALNY POBOR MOCY");
+        if (id(current_power).has_state())
+          it.printf(200, 198, id(font_large_bold), TextAlign::TOP_CENTER,
+                    "%.0f W", id(current_power).state);
+        else
+          it.print(200, 198, id(font_large_bold), TextAlign::TOP_CENTER, "-- W");
+
+      } else if (id(current_page) == 1) {
+        // STRONA 2: energia — trzy przykładowe sensory mocy.
+        it.fill(Color::BLACK);
+        it.print(200, 8, id(font_small_bold), TextAlign::TOP_CENTER, "ENERGIA");
+        it.line(10, 36, 390, 36, Color::WHITE);
+        it.print(200, 48, id(font_small_bold), TextAlign::TOP_CENTER, "AKTUALNY POBOR");
+        if (id(current_power).has_state())
+          it.printf(200, 72, id(font_large_bold), TextAlign::TOP_CENTER,
+                    "%.0f W", id(current_power).state);
+        else
+          it.print(200, 72, id(font_large_bold), TextAlign::TOP_CENTER, "-- W");
+        it.line(10, 122, 390, 122, Color::WHITE);
+        it.print(100, 138, id(font_small_bold), TextAlign::TOP_CENTER, "CZUWANIE");
+        if (id(standby_power).has_state())
+          it.printf(100, 166, id(font_large_bold), TextAlign::TOP_CENTER,
+                    "%.1f W", id(standby_power).state);
+        else
+          it.print(100, 166, id(font_large_bold), TextAlign::TOP_CENTER, "-- W");
+        it.print(300, 138, id(font_small_bold), TextAlign::TOP_CENTER, "BIURO");
+        if (id(office_power).has_state())
+          it.printf(300, 166, id(font_large_bold), TextAlign::TOP_CENTER,
+                    "%.0f W", id(office_power).state);
+        else
+          it.print(300, 166, id(font_large_bold), TextAlign::TOP_CENTER, "-- W");
+
+      } else if (id(current_page) == 2) {
+        // STRONA 3: temperatury w kilku pomieszczeniach.
+        it.fill(Color::BLACK);
+        it.print(200, 8, id(font_small_bold), TextAlign::TOP_CENTER, "TEMPERATURY");
+        it.line(10, 36, 390, 36, Color::WHITE);
+        it.print(100, 48, id(font_small_bold), TextAlign::TOP_CENTER, "PARTER");
+        if (id(indoor_temp).has_state())
+          it.printf(100, 76, id(font_large_bold), TextAlign::TOP_CENTER, "%.1f C", id(indoor_temp).state);
+        else
+          it.print(100, 76, id(font_large_bold), TextAlign::TOP_CENTER, "--.- C");
+        it.print(300, 48, id(font_small_bold), TextAlign::TOP_CENTER, "BIURO");
+        if (id(office_temp).has_state())
+          it.printf(300, 76, id(font_large_bold), TextAlign::TOP_CENTER, "%.1f C", id(office_temp).state);
+        else
+          it.print(300, 76, id(font_large_bold), TextAlign::TOP_CENTER, "--.- C");
+        it.line(10, 125, 390, 125, Color::WHITE);
+        it.print(100, 142, id(font_small_bold), TextAlign::TOP_CENTER, "PIWNICA");
+        if (id(basement_temp).has_state())
+          it.printf(100, 170, id(font_large_bold), TextAlign::TOP_CENTER, "%.1f C", id(basement_temp).state);
+        else
+          it.print(100, 170, id(font_large_bold), TextAlign::TOP_CENTER, "--.- C");
+        it.print(300, 142, id(font_small_bold), TextAlign::TOP_CENTER, "PIETRO");
+        if (id(first_floor_temp).has_state())
+          it.printf(300, 170, id(font_large_bold), TextAlign::TOP_CENTER, "%.1f C", id(first_floor_temp).state);
+        else
+          it.print(300, 170, id(font_large_bold), TextAlign::TOP_CENTER, "--.- C");
+
+      } else if (id(current_page) == 3) {
+        // STRONA 4: jakość powietrza — przykładowe sensory PM2.5 i VOC.
+        it.fill(Color::BLACK);
+        it.print(200, 8, id(font_small_bold), TextAlign::TOP_CENTER, "JAKOSC POWIETRZA");
+        it.line(10, 36, 390, 36, Color::WHITE);
+        it.print(100, 55, id(font_small_bold), TextAlign::TOP_CENTER, "PM2.5");
+        if (id(air_pm25).has_state())
+          it.printf(100, 85, id(font_large_bold), TextAlign::TOP_CENTER, "%.0f", id(air_pm25).state);
+        else
+          it.print(100, 85, id(font_large_bold), TextAlign::TOP_CENTER, "--");
+        it.print(300, 55, id(font_small_bold), TextAlign::TOP_CENTER, "VOC INDEX");
+        if (id(air_voc).has_state())
+          it.printf(300, 85, id(font_large_bold), TextAlign::TOP_CENTER, "%.0f", id(air_voc).state);
+        else
+          it.print(300, 85, id(font_large_bold), TextAlign::TOP_CENTER, "--");
+        it.line(10, 135, 390, 135, Color::WHITE);
+        it.print(100, 153, id(font_small_bold), TextAlign::TOP_CENTER, "TEMPERATURA");
+        if (id(air_temp).has_state())
+          it.printf(100, 183, id(font_large_bold), TextAlign::TOP_CENTER, "%.1f C", id(air_temp).state);
+        else
+          it.print(100, 183, id(font_large_bold), TextAlign::TOP_CENTER, "--.- C");
+        it.print(300, 153, id(font_small_bold), TextAlign::TOP_CENTER, "WILGOTNOSC");
+        if (id(air_humidity).has_state())
+          it.printf(300, 183, id(font_large_bold), TextAlign::TOP_CENTER, "%.0f%%", id(air_humidity).state);
+        else
+          it.print(300, 183, id(font_large_bold), TextAlign::TOP_CENTER, "--%");
+
+      } else if (id(current_page) == 4) {
+        // STRONA 5: prosty przykład statusów bezpieczeństwa.
+        it.fill(Color::BLACK);
+        it.print(200, 8, id(font_small_bold), TextAlign::TOP_CENTER, "BEZPIECZENSTWO");
+        it.line(10, 36, 390, 36, Color::WHITE);
+        it.print(15, 55, id(font_small_bold), TextAlign::TOP_LEFT, "CZUJNIK DYMU");
+        if (!id(smoke_floor1).has_state())
+          it.print(385, 55, id(font_small_bold), TextAlign::TOP_RIGHT, "BRAK DANYCH");
+        else
+          it.print(385, 55, id(font_small_bold), TextAlign::TOP_RIGHT,
+                   id(smoke_floor1).state ? "ALARM" : "OK");
+        it.line(10, 92, 390, 92, Color::WHITE);
+        it.print(15, 110, id(font_small_bold), TextAlign::TOP_LEFT, "CZUJNIK ZALANIA");
+        if (!id(leak_basement).has_state())
+          it.print(385, 110, id(font_small_bold), TextAlign::TOP_RIGHT, "BRAK DANYCH");
+        else
+          it.print(385, 110, id(font_small_bold), TextAlign::TOP_RIGHT,
+                   id(leak_basement).state ? "ALARM" : "OK");
+        it.line(10, 147, 390, 147, Color::WHITE);
+        it.print(15, 165, id(font_small_bold), TextAlign::TOP_LEFT, "BRAMA");
+        if (!id(gate_contact).has_state())
+          it.print(385, 165, id(font_small_bold), TextAlign::TOP_RIGHT, "BRAK DANYCH");
+        else
+          it.print(385, 165, id(font_small_bold), TextAlign::TOP_RIGHT,
+                   id(gate_contact).state ? "OTWARTA" : "ZAMKNIETA");
+
+      } else if (id(current_page) == 5) {
+        // STRONA 6: przykładowe stany osób z Home Assistant.
+        it.fill(Color::BLACK);
+        it.print(200, 8, id(font_small_bold), TextAlign::TOP_CENTER, "DOMOWNICY");
+        it.line(10, 36, 390, 36, Color::WHITE);
+        it.print(15, 55, id(font_small_bold), TextAlign::TOP_LEFT, "OSOBA 1");
+        if (id(person_pawel).has_state())
+          it.print(385, 55, id(font_small_bold), TextAlign::TOP_RIGHT, id(person_pawel).state.c_str());
+        else
+          it.print(385, 55, id(font_small_bold), TextAlign::TOP_RIGHT, "BRAK DANYCH");
+        it.line(10, 90, 390, 90, Color::WHITE);
+        it.print(15, 108, id(font_small_bold), TextAlign::TOP_LEFT, "OSOBA 2");
+        if (id(person_agnieszka).has_state())
+          it.print(385, 108, id(font_small_bold), TextAlign::TOP_RIGHT, id(person_agnieszka).state.c_str());
+        else
+          it.print(385, 108, id(font_small_bold), TextAlign::TOP_RIGHT, "BRAK DANYCH");
+        it.line(10, 143, 390, 143, Color::WHITE);
+        it.print(200, 165, id(font_small_bold), TextAlign::TOP_CENTER,
+                 "Przyklad: encje person.* z HA");
+        it.print(200, 200, id(font_small), TextAlign::TOP_CENTER,
+                 "Nazwy i encje ustaw w konfiguracji");
+
+      } else {
+        // Awaryjny ekran resetu dla current_page == 6.
+        it.fill(Color::BLACK);
+        it.print(200, 20, id(font_small_bold), TextAlign::TOP_CENTER, "RESET FABRYCZNY?");
+        it.line(20, 58, 380, 58, Color::WHITE);
+        it.print(200, 82, id(font_small_bold), TextAlign::TOP_CENTER, "NACISNIJ RESET PONOWNIE");
+        it.print(200, 112, id(font_small_bold), TextAlign::TOP_CENTER, "W CIAGU 5 SEKUND");
+        it.line(20, 150, 380, 150, Color::WHITE);
+        it.print(200, 172, id(font_small_bold), TextAlign::TOP_CENTER, "BRAK POTWIERDZENIA = ANULUJ");
+        it.print(200, 216, id(font_small_bold), TextAlign::TOP_CENTER, "GPIO26: POTWIERDZ");
+        it.print(200, 246, id(font_small_bold), TextAlign::TOP_CENTER, "GPIO27: NIEAKTYWNY");
+      }
