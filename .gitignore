@@ -1,0 +1,12 @@
+# Never commit real credentials
+secrets.yaml
+**/secrets.yaml
+
+# Local build and editor artifacts
+.esphome/
+.storage/
+.vscode/
+.DS_Store
+*.bin
+*.elf
+*.factory.bin
